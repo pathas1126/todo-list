@@ -89,13 +89,14 @@ const TodoCreate = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    const todo = {
+      id: nextId.current,
+      text: inputValue,
+      done: false
+    };
     dispatch({
       type: "CREATE",
-      todo: {
-        id: nextId.current,
-        text: inputValue,
-        done: false
-      }
+      todo
     });
     nextId.current += 1;
     setOpen(false);

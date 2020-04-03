@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useTodoDispatch } from "../TodoContext";
 
 const TodoTemplateBlock = styled.div`
   width: 512px;
@@ -19,6 +20,15 @@ const TodoTemplateBlock = styled.div`
 `;
 
 const TodoTemplate = ({ children }) => {
+  const dispatch = useTodoDispatch();
+  const ss = sessionStorage;
+  const arr = Array(ss.length).fill(null);
+  console.log(arr);
+  const send = arr.map((_, i) => ss.getItem(`todo${i + 1}`));
+  console.log(send);
+  useEffect(() => {
+    send.map(v => dispatch({ type: "CREATE", todo: JSON.parse(v) }));
+  }, [dispatch, send]);
   return <TodoTemplateBlock>{children}</TodoTemplateBlock>;
 };
 
