@@ -3,18 +3,27 @@ import React, { useReducer, createContext, useContext, useRef } from "react";
 const initialTodos = [];
 
 const todoReducer = (state, action) => {
+  console.log(action);
   switch (action.type) {
     case "CREATE":
-      sessionStorage.setItem(
+      localStorage.setItem(
         `todo${action.todo.id}`,
         JSON.stringify(action.todo)
       );
       return state.concat(action.todo);
     case "TOGGLE":
+      localStorage.setItem(
+        `todo${action.id}`,
+        JSON.stringify({
+          ...action.todo,
+          done: !action.todo.done
+        })
+      );
       return state.map(todo =>
         todo.id === action.id ? { ...todo, done: !todo.done } : todo
       );
     case "REMOVE":
+      localStorage.removeItem(`todo${action.id}`);
       return state.filter(todo => todo.id !== action.id);
     default:
       throw new Error(`Unhandled action type: ${action.type}`);

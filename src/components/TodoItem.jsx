@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
-import { useTodoDispatch } from "../TodoContext";
+import { useTodoDispatch, useTodoState } from "../TodoContext";
 
 const Remove = styled.div`
   display: flex;
@@ -58,9 +58,10 @@ const Text = styled.div`
     `}
 `;
 
-const TodoItem = ({ id, done, text }) => {
+const TodoItem = ({ id, done, todo, text }) => {
   const dispatch = useTodoDispatch();
-  const onToggle = () => dispatch({ type: "TOGGLE", id });
+  const todos = useTodoState();
+  const onToggle = () => dispatch({ type: "TOGGLE", todo, id });
   const onRemove = () => dispatch({ type: "REMOVE", id });
   return (
     <TodoItemBlock>

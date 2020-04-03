@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createGlobalStyle } from "styled-components";
 import { TodoTemplate, TodoHead, TodoList, TodoCreate } from "./components";
 import TodoProvider from "./TodoContext";
